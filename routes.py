@@ -25,20 +25,22 @@ def add_event():
         date_obj = datetime.strptime(date_event, '%Y-%m-%d').date()
         type_enum = TypeEvent[type_event]
 
-    new_event = Event(
-        title=title,
-        type_event=type_enum,
-        date_event=date_obj,
-        locality=locality,
-        description=description
-    )
+        new_event = Event(
+            title=title,
+            type_event=type_enum,
+            date_event=date_obj,
+            locality=locality,
+            description=description
+        )
 
-    db.session.add(new_event)
-    db.session.commit()
+        db.session.add(new_event)
+        db.session.commit()
 
-    flash("Évènement créé avec succès !", "success")
+        flash("Évènement créé avec succès !", "success")
 
-    return redirect(url_for("list_event"))
+        return redirect(url_for("list_events"))
+    
+    return render_template("add_event.html", types=TypeEvent)
 
 @app.route("/api/events")
 def get_upcoming_events():
