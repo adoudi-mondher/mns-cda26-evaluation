@@ -42,18 +42,6 @@ def add_event():
     
     return render_template("add_event.html", types=TypeEvent)
 
-@app.route("/api/events")
-def get_upcoming_events():
-    events = Event.query.filter(
-        Event.date_event >= date.today()
-    ).order_by(
-        Event.date_event
-    ).limit(5).all()
-    
-    events_list = [event.to_dict() for event in events]
-    
-    return jsonify(events_list)
-
 @app.route("/delete/<int:event_id>")
 def delete_event(event_id):
     event =  Event.query.get(event_id)
@@ -66,3 +54,15 @@ def delete_event(event_id):
     flash("Évènement supprimé avec succès !", "success")
 
     return redirect(url_for('list_events'))
+
+@app.route("/api/events")
+def get_upcoming_events():
+    events = Event.query.filter(
+        Event.date_event >= date.today()
+    ).order_by(
+        Event.date_event
+    ).limit(5).all()
+    
+    events_list = [event.to_dict() for event in events]
+    
+    return jsonify(events_list)
