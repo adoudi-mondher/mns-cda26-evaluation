@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestion Évènements</title>
+    <!-- Tailwind CDN — une ligne et c'est réglé -->
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50">
+    
+    <!-- Nav ultra-simple -->
+    <nav class="bg-blue-600 text-white p-4 mb-6">
+        <div class="container mx-auto flex gap-4">
+            <a href="/" class="hover:underline">Accueil</a>
+            <a href="/add" class="hover:underline">Ajouter</a>
+            <a href="/api/events" class="hover:underline">API</a>
+        </div>
+    </nav>
+
+    <!-- Zone flash messages -->
+    <div class="container mx-auto mb-4">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="p-4 mb-2 rounded {% if category == 'error' %}bg-red-100 text-red-700{% else %}bg-green-100 text-green-700{% endif %}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+    </div>
+
+    <!-- LE seul bloc — le contenu -->
+    <div class="container mx-auto">
+        {% block content %}{% endblock %}
+    </div>
+
+</body>
+</html>

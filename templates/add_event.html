@@ -1,0 +1,79 @@
+<!-- Hérite du template parent base.html -->
+{% extends "base.html" %}
+
+<!-- Bloc de contenu -->
+{% block content %}
+
+    <!-- Titre de la page -->
+    <h1 class="text-3xl font-bold mb-6">Ajouter un Évènement</h1>
+
+    <!-- Formulaire HTML -->
+    <!-- action="" = poste vers la même URL (/add) -->
+    <!-- method="POST" = envoi des données -->
+    <form method="POST" class="bg-white p-6 rounded shadow max-w-2xl">
+        
+        <!-- Champ Titre -->
+        <div class="mb-4">
+            <label class="block font-semibold mb-2">Titre</label>
+            <input type="text" 
+                   name="title" 
+                   required 
+                   class="w-full border p-2 rounded">
+        </div>
+
+        <!-- Champ Type d'évènement -->
+        <div class="mb-4">
+            <label class="block font-semibold mb-2">Type d'évènement</label>
+            <select name="type_event" 
+                    required 
+                    class="w-full border p-2 rounded">
+                <!-- Boucle sur l'enum TypeEvent passé depuis la route -->
+                {% for type in types %}
+                    <!-- type.name = CONFERENCE, type.value = "Conférence" -->
+                    <option value="{{ type.name }}">{{ type.value }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <!-- Champ Date de l'évènement -->
+        <div class="mb-4">
+            <label class="block font-semibold mb-2">Date proposée</label>
+            <input type="date" 
+                   name="date_event" 
+                   required 
+                   class="w-full border p-2 rounded">
+        </div>
+
+        <!-- Champ Lieu -->
+        <div class="mb-4">
+            <label class="block font-semibold mb-2">Lieu</label>
+            <input type="text" 
+                   name="locality" 
+                   required 
+                   class="w-full border p-2 rounded">
+        </div>
+
+        <!-- Champ Description -->
+        <div class="mb-4">
+            <label class="block font-semibold mb-2">Description</label>
+            <textarea name="description" 
+                      rows="4" 
+                      required 
+                      class="w-full border p-2 rounded"></textarea>
+        </div>
+
+        <!-- Boutons -->
+        <div class="flex gap-4">
+            <button type="submit" 
+                    class="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700">
+                Créer l'évènement
+            </button>
+            <a href="/" 
+               class="bg-gray-300 text-gray-700 px-6 py-2 rounded hover:bg-gray-400">
+                Annuler
+            </a>
+        </div>
+
+    </form>
+
+{% endblock %}
